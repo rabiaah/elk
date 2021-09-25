@@ -104,8 +104,10 @@ export default class LoginForm extends Component {
                     "companyId",
                     response.result.user.id.toString()
                   );
+                  //Actions.auth();
+                  //await this.getUserClaim(response.result.user.unique_id);
+                  saveToStorage(storage, CurrentUserProfile, response.result);
                   Actions.auth();
-                //   await this.getUserClaim(response.result.UserKey);
       
                   this.setState({ loading: false });
                 } else {

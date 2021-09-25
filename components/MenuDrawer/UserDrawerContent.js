@@ -168,7 +168,7 @@ export default class UserDrawerContent extends React.Component
                     </Text>
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => DailyAttendanceCombo()}
                         style={
                             global.DrawerContentId == 1 ?
@@ -183,7 +183,7 @@ export default class UserDrawerContent extends React.Component
                         <Text style={DrawerContentStyle.itemTextStyle}>
                             Attendance
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity
                     onPress={() => MyPanelCombo()}
                     style={
@@ -211,7 +211,7 @@ export default class UserDrawerContent extends React.Component
                             <Text style={DrawerContentStyle.itemTextStyle}>My Tasks</Text>
                     </TouchableOpacity>
                    
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => LeavesCombo()}
                         style={
                             global.DrawerContentId == 5 ?
@@ -226,8 +226,8 @@ export default class UserDrawerContent extends React.Component
                         <Text style={DrawerContentStyle.itemTextStyle}>
                             Leaves
                         </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </TouchableOpacity> */}
+                    {/* <TouchableOpacity
                         onPress={() => NoticeCombo()}
                         style={
                             global.DrawerContentId == 7 ?
@@ -243,8 +243,8 @@ export default class UserDrawerContent extends React.Component
                         <Text style={DrawerContentStyle.itemTextStyle}>
                             Notice Board
                         </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </TouchableOpacity> */}
+                    {/* <TouchableOpacity
                         onPress={() => LeaderBoardCombo()}
                         style={
                             global.DrawerContentId == 8 ?
@@ -257,7 +257,7 @@ export default class UserDrawerContent extends React.Component
                         <Text style={DrawerContentStyle.itemTextStyle}>
                             Leader Board
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity
                         onPress={() => SettingsCombo()}
                         style={

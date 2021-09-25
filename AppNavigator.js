@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Image } from 'react-native';
 import Login from './components/Login';
+import HomeScreen from './components/Screen/home/Home';
 import Register from './components/Register';
 import DailyAttendance from './components/Screen/attendance/DailyAttendance';
 import DailyAttendances from './components/Screen/UserScreen/attendance/DailyAttendance';
@@ -59,13 +60,13 @@ export default class AppNavigator extends Component {
       <Router>
         <Stack key="root" hideNavBar={true}>
         <Scene key="auth" component={AuthLoadingScreen} hideNavBar={true}  />
-        <Scene key="DailyAttendance" component={DailyAttendance} hideNavBar={true} />
+        {/* <Scene key="DailyAttendance" component={DailyAttendance} hideNavBar={true} /> */}
           <Scene key="login" component={Login} title="Login" back={false} hideNavBar={true} />
       
           <Scene key="register" component={Register} title="Register" hideNavBar={true} />
           <Scene key="DrawerContent" component={DrawerContent} hideNavBar={true}/>
           
-          {/* <Drawer
+          <Drawer
             key="drawer"
             drawerImage={{ uri: null }}
             contentComponent={DrawerContent}
@@ -74,10 +75,11 @@ export default class AppNavigator extends Component {
             hideNavBar={true}>
 
             <Scene key="DailyAttendance" component={DailyAttendance} hideNavBar={true} />
+            <Scene key="HomeScreen" component={HomeScreen} hideNavBar={true} />
             <Scene key="LiveTraking" component={LiveTracking} hideNavBar={true} />
             
             <Scene key="AdminTodayAttendance" component={AdminTodayAttendance} />
-            <Scene key="DailyAttendances" component={DailyAttendances} hideNavBar={true}/>
+            {/* <Scene key="DailyAttendances" component={DailyAttendances} hideNavBar={true}/> */}
             <Scene key="auth" component={AuthLoadingScreen} hideNavBar={true} />
             <Scene key="SettingScreen" component={SettingScreen} hideNavBar={true} />
             <Scene key="ReportScreen" component={ReportScreen} hideNavBar={true} />
@@ -245,7 +247,7 @@ export default class AppNavigator extends Component {
               </Stack>
             </Tabs>
 
-          </Drawer> */}
+          </Drawer>
 
          
           <Scene key="ReportScreen" component={DepartmentSetupScreen} hideNavBar={true} />

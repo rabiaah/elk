@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {
     FlatList, Text, View, Image, StatusBar,
     TouchableOpacity, Platform,
-    RefreshControl, AsyncStorage, BackHandler
+    RefreshControl, BackHandler
 } from 'react-native';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Actions } from 'react-native-router-flux';
 
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -59,7 +59,7 @@ export default class DailyAttendances extends Component {
 
         }.bind(this), 2000);
 
-        this.getAttendanceFeed(this.state.CompanyId);
+       // this.getAttendanceFeed(this.state.CompanyId);
     }
 
     setSelectedOption = (id) => {
@@ -87,7 +87,7 @@ export default class DailyAttendances extends Component {
         this.setState({ UserId: UserId, CompanyId: cId });
         console.log("UserId", this.state.UserId);
 
-        this.getAttendanceFeed(cId);
+       // this.getAttendanceFeed(cId);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }
     componentWillUnmount() {
@@ -209,200 +209,7 @@ export default class DailyAttendances extends Component {
                         </View>
                     </View>
                 </View>
-                <View
-                    style={[
-                        DailyAttendanceStyle.FlatListTouchableOpacity,
-                        style = {
-                            padding: 10,
-                            height: 100,
-                            // paddingVertical: 20,
-                            backgroundColor: "#f8f9fb"
-                        }
-                    ]}>
-                    <View
-                        style={
-                            DailyAttendanceStyle.FlatListLeft
-                        }>
-                        <View style={{ paddingRight: 10, }}>
-                            {this.state.employeeDetail!=null && this.state.employeeDetail.ImageFileName !== "" ? (
-                                <Image resizeMode='cover' style={
-                                    DailyAttendanceStyle.ImageLocal
-                                } source={{ uri: urlResource + this.state.employeeDetail.ImageFileName }} />) :
-
-                                (<Image style={
-                                    DailyAttendanceStyle.ImagestyleFromServer
-                                } resizeMode='contain' source={require('../../../../assets/images/employee.png')} />)}
-
-
-                            {this.state.employeeDetail.IsCheckedOut ? (<Image resizeMode="contain"
-                                style={DailyAttendanceStyle.styleForonlineOfflineIcon}
-                                source={require('../../../../assets/images/icon_gray.png')} />)
-                                :
-                                (this.state.employeeDetail.IsCheckedIn ?
-                                    (<Image style={DailyAttendanceStyle.styleForonlineOfflineIcon
-                                    } resizeMode='contain' source={require('../../../../assets/images/icon_green.png')} />)
-                                    : (<Image style={
-                                        DailyAttendanceStyle.styleForonlineOfflineIcon
-                                    } resizeMode='contain' source={require('../../../../assets/images/icon_gray.png')} />))
-                            }
-
-                        </View>
-                        <View style={DailyAttendanceStyle.RightTextView}>
-                            <Text style={
-                                DailyAttendanceStyle.NameText
-                            }
-                            >
-                                {this.state.employeeDetail.EmployeeName}
-                            </Text>
-                            <Text style={
-                                DailyAttendanceStyle.DesignationText
-                            }
-                            >
-                                {this.state.employeeDetail.Designation}
-                            </Text>
-                            <Text style={
-                                DailyAttendanceStyle.DepartmentText
-                            }
-                            >
-                                {this.state.employeeDetail.DepartmentName}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={DailyAttendanceStyle.TimeContainer}>
-                        <TouchableOpacity onPress={() => Actions.MyPanel()}>
-                            <Image resizeMode="contain" style={{
-                                width: 67,
-                                height: 56
-                            }}
-                                source={require('../../../../assets/images/panelb.png')}>
-                            </Image>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                {/* <View
-                    style={
-                        DailyAttendanceStyle.ListContainer
-                    }>
-                    {this.renderStatusList()}
-                </View> */}
-                <View
-                    style={
-                        DailyAttendanceStyle.FlatListContainer
-                    }>
-                    <FlatList
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refreshing}
-                                onRefresh={this._onRefresh.bind(this)}
-                            />
-                        }
-                        data={this.state.employeeList}
-                        keyExtractor={(x, i) => i.toString()}
-                        renderItem=
-                        {({ item }) =>
-                            <View
-                                style={
-                                    DailyAttendanceStyle.FlatListTouchableOpacity
-                                }>
-                                <View
-                                    style={
-                                        DailyAttendanceStyle.FlatListLeft
-                                    }>
-                                    <View style={{ paddingRight: 10, }}>
-                                        {item.ImageFileName !== "" ?
-                                            <Image resizeMode='cover' style={
-                                                DailyAttendanceStyle.ImageLocal
-                                            } source={{ uri: urlResource + item.ImageFileName }} /> : <Image style={
-                                                DailyAttendanceStyle.ImagestyleFromServer
-                                            } resizeMode='contain' source={require('../../../../assets/images/employee.png')} />}
-
-
-                                        {item.IsCheckedOut ? (<Image resizeMode="contain"
-                                            style={DailyAttendanceStyle.styleForonlineOfflineIcon}
-                                            source={require('../../../../assets/images/icon_gray.png')} />)
-                                            : (item.IsCheckedIn ?
-                                                (<Image style={DailyAttendanceStyle.styleForonlineOfflineIcon
-                                                } resizeMode='contain' source={require('../../../../assets/images/icon_green.png')} />)
-                                                : (<Image style={
-                                                    DailyAttendanceStyle.styleForonlineOfflineIcon
-                                                } resizeMode='contain' source={require('../../../../assets/images/icon_gray.png')} />))
-                                        }
-
-                                    </View>
-                                    <View style={DailyAttendanceStyle.RightTextView}>
-                                        <Text style={
-                                            DailyAttendanceStyle.NameText
-                                        }
-                                        >
-                                            {item.EmployeeName}
-                                        </Text>
-                                        <Text style={
-                                            DailyAttendanceStyle.DesignationText
-                                        }
-                                        >
-                                            {item.Designation}
-                                        </Text>
-                                        <Text style={
-                                            DailyAttendanceStyle.DepartmentText
-                                        }
-                                        >
-                                            {item.DepartmentName}
-                                        </Text>
-                                    </View>
-                                </View>
-                                <View style={DailyAttendanceStyle.TimeContainer}>
-                                    <View
-                                        style={
-                                            DailyAttendanceStyle.TimeContent
-                                        }>
-                                        <Text
-                                            style={
-                                                DailyAttendanceStyle.CheckintimeStyle
-                                            }>
-                                            {item.CheckInTimeVw !== "" ?
-                                                (<AntDesign
-                                                    name="arrowdown" size={10}
-                                                    color="#07c15d"
-                                                    style={DailyAttendanceStyle.AntDesignstyle}>
-                                                </AntDesign>) : ("")}
-                                        </Text>
-                                        <Text style={
-                                            DailyAttendanceStyle.CheckinTimeText
-                                        }>
-                                            {item.CheckInTimeVw !== "" ? item.CheckInTimeVw : ("")}</Text>
-
-                                    </View>
-
-                                    <View
-                                        style={
-                                            DailyAttendanceStyle.CheckOutTimeView
-                                        }>
-                                        <Text
-                                            style={
-                                                DailyAttendanceStyle.CheckOutTimetext
-                                            }>
-                                            {item.IsCheckedOut ?
-                                                (<AntDesign
-                                                    name="arrowup" size={10}
-                                                    color="#a1d3ff"
-                                                    style={
-                                                        DailyAttendanceStyle.CheckOutTimeIconstyle
-                                                    }>
-                                                </AntDesign>) : ("")}
-                                        </Text>
-                                        <Text style={
-                                            DailyAttendanceStyle.CheckOutTimeText
-                                        }>{item.IsCheckedOut ? item.CheckOutTimeVw : ("")}</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                        }>
-                        }
-                    </FlatList>
-                </View>
-
+               
             </View >
         )
     }
